@@ -14,7 +14,7 @@
                             // 2. Check minimum amount requirement
                             // 3. Check category requirement (if any)
                             // Return { valid: true/false, message: '...' }
-                            let i=coupons.find(coupon=>coupon.couponCode===couponCode)
+                            let i=coupons[couponCode]
                             if(i)
                             {
                                 if(cartTotal<i.minAmount)
@@ -35,7 +35,7 @@
                           export function calculateDiscount(couponCode, cartTotal) {
                             // Calculate discount amount based on coupon type
                             // Return discount amount
-                            let i=coupons.find(coupon=>coupon.couponCode===couponCode)
+                            let i=coupons[couponCode]
                             if(i)
                             {
                                 if(i.type==="percentage")
@@ -63,7 +63,7 @@
                             //   finalTotal: ...,
                             //   message: '...'
                             // }
-                            let i=coupons.find(coupon=>coupon.couponCode===couponCode)
+                            let i=coupons[couponCode]
                             if(i)
                             {
                                 if(i.type==="percentage")
