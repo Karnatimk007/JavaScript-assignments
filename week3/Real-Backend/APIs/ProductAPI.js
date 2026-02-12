@@ -1,5 +1,5 @@
 import express from  "express"
-import {ProductModel} from "../models/UseModel.js"
+import {ProductModel} from "../models/ProductModel.js"
 //create mini express router
 const Productapp=express.Router()
 
