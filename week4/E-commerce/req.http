@@ -1,0 +1,32 @@
+### Create product req
+POST http://localhost:1433/product-api/create
+Content-Type: application/json
+
+{
+    "productName":"Lop",
+    "price":50000,
+    "brand":"Dell"
+}
+
+### Get all products req
+GET http://localhost:1433/product-api/get
+
+
+### Create user req
+POST http://localhost:1433/user-api/user
+Content-Type: application/json
+
+{
+    "name":"Mahi",
+    "email":"mahi@12345",
+    "password":"122333",
+    "cart":[]
+}
+
+### Add product to user cart req
+PUT http://localhost:1433/user-api/user/userid/6981a72e0c9e85cb4f0ba252/productid/6981a7310c9e85cb4f0ba254
+
+### Get user by id req
+GET http://localhost:1433/user-api/user/6981a72e0c9e85cb4f0ba252
+
+
