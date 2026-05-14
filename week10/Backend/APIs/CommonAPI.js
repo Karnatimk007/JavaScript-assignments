@@ -23,7 +23,7 @@ commonRouter.post('/login',async(req,res)=>{
         console.log(`Login successful for ${userObj.email}`)
 
         //save token in cookie
-        res.cookie('token',token,{httpOnly:true,sameSite:'lax',secure:false})
+        res.cookie('token',token,{httpOnly:true,sameSite:'none',secure:true})
         //send response
         res.status(200).json({message:"User authenticated",payload:user})
     } catch(err) {
@@ -61,8 +61,8 @@ commonRouter.get('/logout',(req,res)=>{
     //clear the cookie named 'token'
     res.clearCookie('token',{
         httpOnly:true,//for server security from client
-        sameSite:'lax',//for cross domain requests
-        secure:false//for https
+        sameSite:'none',//for cross domain requests
+        secure:true//for https
     })
     res.json({message:"Logged out successfully"})
 })
