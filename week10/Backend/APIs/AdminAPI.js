@@ -48,4 +48,25 @@ AdminRouter.put('/unblock/:id',async(req,res)=>{
     await user.save()
     res.status(200).json({message:"user unblocked",user});
 })
+
+// Get all users
+AdminRouter.get('/users-list', async (req, res, next) => {
+    try {
+        const users = await UserTypeModel.find({ role: 'USER' });
+        res.status(200).json({ message: "Users list fetched", payload: users });
+    } catch (err) {
+        next(err);
+    }
+});
+
+// Get all authors
+AdminRouter.get('/authors-list', async (req, res, next) => {
+    try {
+        const authors = await UserTypeModel.find({ role: 'AUTHOR' });
+        res.status(200).json({ message: "Authors list fetched", payload: authors });
+    } catch (err) {
+        next(err);
+    }
+});
+
 export default AdminRouter

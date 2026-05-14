@@ -103,7 +103,10 @@ function Login() {
 
           {/* Password */}
           <div className={formGroup}>
-            <label className={labelClass}>Password</label>
+            <div className="flex items-center justify-between mb-1">
+              <label className={`${labelClass} mb-0`}>Password</label>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/forgot-password'); }} className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors">Forgot password?</a>
+            </div>
             <input
               type="password"
               placeholder="••••••••"

@@ -146,6 +146,15 @@ function ArticleByID() {
         </div>
       )}
       {/* form to add comment if role is USER */}
+       {/* comments */}
+      {article.comments.map((comment, index) => (
+        <div className="bg-gray-300 p-6 rounded-2xl mt-4" key={comment._id || index}>
+          <p className="uppercase text-pink-400 font-bold mb-3">
+          {comment.user?.firstName} {comment.user?.lastName}
+          </p>
+          <p>{comment.comment}</p>
+        </div>
+      ))}
       {/* USER actions */}
       {user?.role === "USER" && (
         <div className={articleActions}>
@@ -163,15 +172,7 @@ function ArticleByID() {
         </div>
       )}
 
-      {/* comments */}
-      {article.comments.map((comment, index) => (
-        <div className="bg-gray-300 p-6 rounded-2xl mt-4" key={comment._id || index}>
-          <p className="uppercase text-pink-400 font-bold mb-3">
-          {comment.user?.firstName} {comment.user?.lastName}
-          </p>
-          <p>{comment.comment}</p>
-        </div>
-      ))}
+     
 
       {/* Footer */}
       <div className={articleFooter}>Last updated: {formatDate(article.updatedAt)}</div>
