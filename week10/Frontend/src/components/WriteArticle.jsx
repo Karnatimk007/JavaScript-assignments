@@ -40,7 +40,7 @@ function WriteArticle() {
     articleObj.author = authorId;
     try {
       const res = await axios.post(
-        "http://localhost:4000/author-api/articles",
+        "https://blogapp-backend-7kra.onrender.com/author-api/articles",
         articleObj,
         { withCredentials: true }
       );

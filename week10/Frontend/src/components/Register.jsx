@@ -64,13 +64,13 @@ function Register() {
 
     try {
       if (role === 'user') {
-        let res = await axios.post('http://localhost:4000/user-api/users', formData)
+        let res = await axios.post('https://blogapp-backend-7kra.onrender.com/user-api/users', formData)
         if (res.status === 201) {
           navigate('/login')
         }
       }
       if (role === 'author') {
-         let res = await axios.post('http://localhost:4000/author-api/users', formData)
+         let res = await axios.post('https://blogapp-backend-7kra.onrender.com/author-api/users', formData)
         if (res.status === 201) {
           setError(null)
           navigate('/login')
@@ -78,7 +78,7 @@ function Register() {
       }
       if (role === 'admin') {
         // Admin registration — sends JSON, no profile image required
-        let res = await axios.post('http://localhost:4000/admin-api/users', {
+        let res = await axios.post('https://blogapp-backend-7kra.onrender.com/admin-api/users', {
           ...userObj,
         })
         if (res.status === 201) {
