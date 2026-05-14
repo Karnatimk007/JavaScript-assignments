@@ -12,7 +12,7 @@ config()
 const app = exp()
 //use cors middleware
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: true,
     credentials: true, // required to allow cookies to be sent/received cross-origin
 }))
 //add body parser middleware
@@ -44,6 +44,7 @@ app.use((req,res)=>{
 })
 //error handling middleware
 app.use((err, req, res, next) => {
+  console.error("Global Error Handler:", err);
   // Mongoose validation error
   if (err.name === "ValidationError") {
     return res.status(400).json({

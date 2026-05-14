@@ -3,7 +3,7 @@
 // Inspired by apple.com — no gradients, no shadows, pure typography & spacing
 
 // ─── Layout ───────────────────────────────────────────
-export const pageBackground = "bg-white min-h-screen"
+export const pageBackground = "bg-white h-full"
 export const pageWrapper    = "max-w-5xl mx-auto px-6 py-16"
 export const section        = "mb-14"
 

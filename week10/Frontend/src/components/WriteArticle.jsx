@@ -18,7 +18,7 @@ import { useAuth } from '../store/authStore';
 function WriteArticle() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const currentuser = useAuth((state) => state.currentuser);
+  const currentUser = useAuth((state) => state.currentUser);
 
   const {
     register,
@@ -28,7 +28,7 @@ function WriteArticle() {
   } = useForm();
 
   const submitArticle = async (articleObj) => {
-    if (!currentuser) {
+    if (!currentUser) {
       toast.error("User session not found. Please login again.");
       return;
     }
@@ -36,7 +36,7 @@ function WriteArticle() {
     setLoading(true);
 
     //add authorId to articleObj
-    const authorId = currentuser._id || currentuser.userId;
+    const authorId = currentUser._id || currentUser.userId;
     articleObj.author = authorId;
     try {
       const res = await axios.post(

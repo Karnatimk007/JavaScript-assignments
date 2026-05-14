@@ -47,7 +47,7 @@ function App() {
          {
           path: "user-profile",
           element: 
-          <ProtectedRoute allowedRoles={["USER"]}>
+          <ProtectedRoute role={["USER"]}>
             <UserDashboard />
           </ProtectedRoute>,
         },{

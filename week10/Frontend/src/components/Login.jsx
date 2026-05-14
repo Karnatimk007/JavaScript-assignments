@@ -30,6 +30,7 @@ function Login() {
   const login = useAuth(state => state.login)
   const currentUser = useAuth(state => state.currentUser)   // capital U — matches store
   const isAuthenticated = useAuth(state => state.isAuthenticated)
+  const Error = useAuth(state=>state.error)
   const navigate = useNavigate()
 
   const onUserLogin = async (formData) => {
@@ -67,7 +68,7 @@ function Login() {
         <h2 className={formTitle}>Sign In</h2>
 
         {/* Error message */}
-        {loginError && <p className={`${errorClass} mb-5`}>{loginError}</p>}
+        {(loginError || Error) && <p className={`${errorClass} mb-5`}>{loginError || Error}</p>}
         {/* Loading */}
         {loading && <p className={loadingClass}>Signing in…</p>}
 

@@ -41,7 +41,7 @@ function UsersList() {
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Users List</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 t-[400px]">
         {users.length === 0 && <p>No users found.</p>}
         {users.map((user) => (
           <div key={user._id} className="p-4 border rounded shadow-sm bg-white">

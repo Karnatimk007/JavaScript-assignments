@@ -77,7 +77,7 @@ function ArticleByID() {
 
       console.log("SUCCESS:", res.data);
 
-      setArticle(res.data.payload);
+      setArticle(res.data.article || res.data.payload);
 
       toast.success(res.data.message);
     } catch (err) {
@@ -95,7 +95,7 @@ function ArticleByID() {
 
   //edit article
   const editArticle = (articleObj) => {
-    navigate("/edit-article", { state: articleObj });
+    navigate(`/edit-article/${articleObj._id}`, { state: articleObj });
   };
 
   //post comment by user

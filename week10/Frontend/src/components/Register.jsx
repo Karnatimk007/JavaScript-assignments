@@ -16,24 +16,52 @@ import {
 } from '../styles/common'
 
 function Register() {
-  const { register, handleSubmit ,} = useForm()
+  const { register, handleSubmit } = useForm()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [preview, setPreview] = useState(null)
+  const [selectedFile, setSelectedFile] = useState(null)
   const navigate = useNavigate()
 
   const handleRegister = handleSubmit(async (data) => {
-     setLoading(true)
-     // Create form data object
-        const formData = new FormData();
-        //get user object
-        let { role, profileImageUrl, ...userObj } = data;
-        //add all fields except profilePic to FormData object
-        Object.keys(userObj).forEach((key) => {
-        formData.append(key, userObj[key]);
-        });
-        // add profilePic to Formdata object
-        formData.append("profileImageUrl", profileImageUrl[0]);
+    setLoading(true)
+    setError(null)
+
+    // Validation
+    if (!data.role) {
+      setError("Please select a role (User or Author)")
+      setLoading(false)
+      return
+    }
+    if (!data.firstName || !data.firstName.trim()) {
+      setError("First Name is required")
+      setLoading(false)
+      return
+    }
+    if (!data.email || !data.email.trim()) {
+      setError("Email is required")
+      setLoading(false)
+      return
+    }
+    if (!data.password) {
+      setError("Password is required")
+      setLoading(false)
+      return
+    }
+
+    // Create form data object
+    const formData = new FormData();
+    //get user object
+    let { role, ...userObj } = data;
+    //add all fields except profilePic to FormData object
+    Object.keys(userObj).forEach((key) => {
+      formData.append(key, userObj[key]);
+    });
+    // add profilePic to Formdata object using our robust selectedFile state
+    if (selectedFile) {
+      formData.append("profileImageUrl", selectedFile);
+    }
+
     try {
       if (role === 'user') {
         let res = await axios.post('http://localhost:4000/user-api/users', formData)
@@ -59,11 +87,18 @@ function Register() {
         }
       }
     } catch (err) {
-      setError(err.response?.data?.message||"failed")
+      let errorMsg = err.response?.data?.message || "Registration failed. Please try again.";
+      if (errorMsg === "Duplicate field value") {
+        errorMsg = "Email already exists. Please use a different email or login.";
+      } else if (errorMsg === "Validation failed") {
+        errorMsg = "Please check your inputs and ensure all required fields are provided.";
+      }
+      setError(errorMsg)
     } finally {
       setLoading(false)
     }
   })
+
   //cleanup(remove preview image from browser memory)
   useEffect(()=>{
     return ()=>{
@@ -72,10 +107,12 @@ function Register() {
       }
     }
   },[preview])
+
   //loading
   if(loading){
     return <p className={loadingClass}>Registering…</p>
   }
+
   return (
     <div className={`${pageBackground} flex items-center justify-center py-20`}>
       <div className={formCard}>
@@ -83,9 +120,6 @@ function Register() {
 
         {/* Error message */}
         {error && <p className={`${errorClass} mb-5`}>{error}</p>}
-
-        {/* Loading */}
-        {loading && <p className={loadingClass}>Registering…</p>}
 
         <form onSubmit={handleRegister} className="flex flex-col gap-1">
 
@@ -95,7 +129,6 @@ function Register() {
             <div className="flex gap-6 mt-1">
               <label className={`${bodyText} flex items-center gap-2 cursor-pointer`}>
                 <input type="radio" {...register('role')} value="user" /> User
-        
               </label>
               <label className={`${bodyText} flex items-center gap-2 cursor-pointer`}>
                 <input type="radio" {...register('role')} value="author" /> Author
@@ -149,11 +182,11 @@ function Register() {
 
           {/* Profile image URL */}
           <div className={formGroup}>
-            <label className={labelClass}>Profile Image URL</label>
+            <label className={labelClass}>Profile Image</label>
            <input
             type="file"
             accept="image/png, image/jpeg"
-            {...register("profileImageUrl")}
+            className="w-full text-sm text-[#6e6e73] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#0066cc]/10 file:text-[#0066cc] hover:file:bg-[#0066cc]/20 cursor-pointer"
             onChange={(e) => {
               //get image file
               const file = e.target.files[0];
@@ -168,10 +201,14 @@ function Register() {
                   setError("File size must be less than 2MB");
                   return;
                 }
+                setSelectedFile(file);
                 //Converts file → temporary browser URL(create preview URL)
                 const previewUrl = URL.createObjectURL(file);
                 setPreview(previewUrl);
                 setError(null);
+              } else {
+                setSelectedFile(null);
+                setPreview(null);
               }
             }}
           />
@@ -191,7 +228,6 @@ function Register() {
           </button>
         </form>
 
-      
       </div>
     </div>
   )
