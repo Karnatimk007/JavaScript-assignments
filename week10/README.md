@@ -16,6 +16,14 @@ Hey there! Welcome to the repository for my premium full-stack blog application.
 
 ---
 
+## 🌐 Deployment
+
+- **Frontend:** Deployed on **Vercel**
+- **Backend:** Deployed on **Render**
+
+
+---
+
 ## 🛠️ Tech Stack
 
 ### Frontend
