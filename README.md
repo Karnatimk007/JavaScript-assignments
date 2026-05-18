@@ -19,7 +19,7 @@ Hey there! Welcome to the repository for my premium full-stack blog application.
 ## 🌐 Deployment
 
 - **Frontend:** Deployed on **Vercel**
-- **Backend:** Deployed on **Render**
+- **Backend:** Deployed on **Render** 
 
 
 ---
@@ -47,7 +47,7 @@ Follow these steps to get the project up and running on your local machine.
 
 ### 1. Setup the Environment Variables
 
-In your `Backend` directory, create a `.env` file with the following keys:
+In your `week10/Backend` directory, create a `.env` file with the following keys:
 
 ```env
 DB_URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/?appName=Cluster0
@@ -64,7 +64,7 @@ API_SECRET=your_cloudinary_api_secret
 Open a terminal, navigate to the backend directory, install the dependencies, and start the development server:
 
 ```bash
-cd Backend
+cd week10/Backend
 npm install
 npm run dev # or run with nodemon server.js
 ```
@@ -75,7 +75,7 @@ npm run dev # or run with nodemon server.js
 Open another terminal tab, navigate to the frontend folder, install packages, and boot up the Vite server:
 
 ```bash
-cd Frontend
+cd week10/Frontend
 npm install
 npm run dev
 ```

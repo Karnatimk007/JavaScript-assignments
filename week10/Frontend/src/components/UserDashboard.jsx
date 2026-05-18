@@ -22,7 +22,7 @@ function UserDashboard() {
     const getArticles = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:4000/user-api/articles", { withCredentials: true });
+        const res = await axios.get("https://blogapp-backend-7kra.onrender.com/user-api/articles", { withCredentials: true });
         setArticles(res.data.articles || []);
       } catch (err) {
         setError(err.response?.data?.error || "Something went wrong");

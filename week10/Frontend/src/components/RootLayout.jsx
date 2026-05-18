@@ -13,9 +13,11 @@ function RootLayout() {
     return <div className="flex items-center justify-center min-h-screen text-2xl font-semibold text-blue-600 animate-pulse">Loading...</div>
   }
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header/>
-      <Outlet/>
+      <main className="flex-grow">
+        <Outlet/>
+      </main>
       <Footer/>
     </div>
   )

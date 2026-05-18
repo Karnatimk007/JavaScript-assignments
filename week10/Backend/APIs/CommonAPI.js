@@ -23,7 +23,7 @@ commonRouter.post('/login',async(req,res)=>{
         console.log(`Login successful for ${userObj.email}`)
 
         //save token in cookie
-        res.cookie('token',token,{httpOnly:true,sameSite:'lax',secure:false})
+        res.cookie('token',token,{httpOnly:true,sameSite:'none',secure:true})
         //send response
         res.status(200).json({message:"User authenticated",payload:user})
     } catch(err) {
@@ -31,13 +31,38 @@ commonRouter.post('/login',async(req,res)=>{
         res.status(err.status||500).json({message:err.message||"Login failed"})
     }
 })
+//forgot password
+commonRouter.post('/forgot-password', async (req, res) => {
+    try {
+        const { email, role, newPassword } = req.body;
+        if(!email || !role || !newPassword) {
+            return res.status(400).json({ message: "Email, role and new password are required" });
+        }
+        
+        // find user
+        const user = await UserTypeModel.findOne({ email, role: role.toUpperCase() });
+        if(!user) {
+            return res.status(404).json({ message: "User not found with this email and role" });
+        }
+        
+        // hash new password
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+        
+        res.status(200).json({ message: "Password reset successful. You can now login." });
+    } catch(err) {
+        console.log(`Forgot password failed for ${req.body.email}: ${err.message}`);
+        res.status(500).json({ message: "Failed to reset password" });
+    }
+});
+
 //logout
 commonRouter.get('/logout',(req,res)=>{
     //clear the cookie named 'token'
     res.clearCookie('token',{
-        httpOnly:true,//must match original set settings
-        sameSite:'lax',//must match original set settings
-        secure:false//must match original set settings
+        httpOnly:true,//for server security from client
+        sameSite:'none',//for cross domain requests
+        secure:true//for https
     })
     res.json({message:"Logged out successfully"})
 })

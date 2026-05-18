@@ -2,6 +2,7 @@ import React from 'react'
 import Home from './components/Home'
 import Register from './components/Register'
 import Login from './components/Login'
+import ForgotPassword from './components/ForgotPassword'
 import AddArticle from './components/AddArticle'
 import UserDashboard from './components/UserDashboard'
 import AuthorDashboard from './components/AuthorDashboard'
@@ -12,6 +13,8 @@ import WriteArticle from './components/WriteArticle'
 import AuthorArticles from './components/AuthorArticles'
 import Articles from './components/Articles'
 import Footer from './components/Footer'
+import UsersList from './components/UsersList'
+import AuthorsList from './components/AuthorsList'
 import {createBrowserRouter, RouterProvider} from 'react-router'
 import RootLayout from './components/RootLayout'
 import { Toaster } from 'react-hot-toast'
@@ -38,14 +41,15 @@ function App() {
           element:<Login/>
         },
         {
-          path:'/user-profile',
-          element: <ProtectedRoute role={["USER","AUTHOR","ADMIN"]}><UserDashboard/></ProtectedRoute>,
-          children: [
-            {
-              path: '',
-              element: <Articles />
-            }
-          ]
+          path:'/forgot-password',
+          element:<ForgotPassword/>
+        },
+         {
+          path: "user-profile",
+          element: 
+          <ProtectedRoute role={["USER"]}>
+            <UserDashboard />
+          </ProtectedRoute>,
         },{
           path:'/author-profile',
           element:<ProtectedRoute role={["AUTHOR"]}><AuthorDashboard/></ProtectedRoute>,
@@ -65,11 +69,11 @@ function App() {
           children: [
             {
               path: 'users',
-              element: <div>Users List Component</div>
+              element: <UsersList />
             },
             {
               path: 'authors',
-              element: <div>Authors List Component</div>
+              element: <AuthorsList />
             }
           ]
         },{

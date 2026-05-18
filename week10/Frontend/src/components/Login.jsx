@@ -30,6 +30,7 @@ function Login() {
   const login = useAuth(state => state.login)
   const currentUser = useAuth(state => state.currentUser)   // capital U — matches store
   const isAuthenticated = useAuth(state => state.isAuthenticated)
+  const Error = useAuth(state=>state.error)
   const navigate = useNavigate()
 
   const onUserLogin = async (formData) => {
@@ -67,7 +68,7 @@ function Login() {
         <h2 className={formTitle}>Sign In</h2>
 
         {/* Error message */}
-        {loginError && <p className={`${errorClass} mb-5`}>{loginError}</p>}
+        {(loginError || Error) && <p className={`${errorClass} mb-5`}>{loginError || Error}</p>}
         {/* Loading */}
         {loading && <p className={loadingClass}>Signing in…</p>}
 
@@ -103,7 +104,10 @@ function Login() {
 
           {/* Password */}
           <div className={formGroup}>
-            <label className={labelClass}>Password</label>
+            <div className="flex items-center justify-between mb-1">
+              <label className={`${labelClass} mb-0`}>Password</label>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/forgot-password'); }} className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors">Forgot password?</a>
+            </div>
             <input
               type="password"
               placeholder="••••••••"

@@ -21,7 +21,7 @@ function AuthorArticles() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const currentuser = useAuth((state) => state.currentuser);
+  const currentUser = useAuth((state) => state.currentUser);
 
   const formatDate = (date) => {
     return new Date(date).toLocaleString("en-IN", {
@@ -36,15 +36,15 @@ function AuthorArticles() {
   };
 
   useEffect(() => {
-    if (!currentuser) return;
+    if (!currentUser) return;
 
     const fetchAuthorArticles = async () => {
       try {
         setLoading(true);
         setError(null);
-        const authorId = currentuser._id || currentuser.userId;
+        const authorId = currentUser._id || currentUser.userId;
         const res = await axios.get(
-          `http://localhost:4000/author-api/articles/${authorId}`,
+          `https://blogapp-backend-7kra.onrender.com/author-api/articles/${authorId}`,
           { withCredentials: true }
         );
         setArticles(res.data.articles || []);
@@ -56,7 +56,7 @@ function AuthorArticles() {
     };
 
     fetchAuthorArticles();
-  }, [currentuser]);
+  }, [currentUser]);
 
   return (
     <div className={pageWrapper}>
