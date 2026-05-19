@@ -49,7 +49,7 @@ UserRouter.post(
 //Autheticate user
 
 //read all articles(protected route)
-UserRouter.get('/articles',verifyToken('USER'),async(req,res)=>{
+UserRouter.get('/articles',verifyToken('USER', 'AUTHOR', 'ADMIN'),async(req,res)=>{
     let articles = await ArticleTypeModel.find({ isArticleActive: true }).populate("author", "firstName lastName")
     res.status(200).json({message:"Articles",articles})
 })
@@ -75,7 +75,7 @@ UserRouter.put('/articles',verifyToken('USER'),async(req,res)=>{
     res.status(201).json({message:"Comment added",articleWithComment})
 })
 //read single article by id
-UserRouter.get('/article/:id',verifyToken('USER'),async(req,res)=>{
+UserRouter.get('/article/:id',verifyToken('USER', 'AUTHOR', 'ADMIN'),async(req,res)=>{
     const {id}=req.params
     let article=await ArticleTypeModel.findById(id)
       .populate("author","firstName lastName")
