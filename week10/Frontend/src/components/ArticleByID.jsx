@@ -66,9 +66,7 @@ function ArticleByID() {
   const toggleArticleStatus = async () => {
     const newStatus = !article.isArticleActive;
 
-    const confirmMsg = newStatus ? "Restore this article?" : "Delete this article?";
-    if (!window.confirm(confirmMsg)) return;
-
+   
     try {
       const res = await axios.patch(
         `https://blogapp-backend-7kra.onrender.com/author-api/articles/${id}/status`,

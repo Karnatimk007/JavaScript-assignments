@@ -1,10 +1,17 @@
 import { NavLink, Outlet } from 'react-router'
 import { useAuth } from '../store/authStore'
 import { pageWrapper, navLinkClass, navLinkActiveClass, divider, headingClass } from '../styles/common'
+import { useState, useEffect } from 'react'
 
 function AdminDashboard() {
   const user = useAuth((state) => state.currentUser)
-
+  const [defaultActive, setDefaultActive] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDefaultActive(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div className={pageWrapper}>
       <div className="mb-6">
@@ -18,12 +25,16 @@ function AdminDashboard() {
       
       {/* Admin Navigation */}
       <div className="flex gap-6 mb-6">
-        <NavLink
-          to="users"
-          className={({ isActive }) => (isActive ? navLinkActiveClass : navLinkClass)}
-        >
-          Users List
-        </NavLink>
+       <NavLink
+  to="users"
+  className={({ isActive }) =>
+    isActive || defaultActive
+      ? navLinkActiveClass
+      : navLinkClass
+  }
+>
+  Users List
+</NavLink>
 
         <NavLink
           to="authors"
