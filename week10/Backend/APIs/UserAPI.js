@@ -54,7 +54,7 @@ UserRouter.get('/articles',verifyToken('USER', 'AUTHOR', 'ADMIN'),async(req,res)
     res.status(200).json({message:"Articles",articles})
 })
 //Add comment to an article(protected route)
-UserRouter.put('/articles',verifyToken('USER'),async(req,res)=>{
+UserRouter.put('/articles',verifyToken('USER', 'AUTHOR'),async(req,res)=>{
     const {user,comment,articleId}=req.body
     //check user(req.user)
     if(user != req.user.userId)
