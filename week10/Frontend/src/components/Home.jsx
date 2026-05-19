@@ -29,16 +29,11 @@ function Home() {
     <div className={`${pageBackground} min-h-screen relative overflow-x-hidden`}>
       {/* ─── HERO SECTION ─── */}
       <section className="relative overflow-hidden pt-24 pb-20 px-6 max-w-5xl mx-auto flex flex-col items-center justify-center text-center animate-fade-up">
-        {/* Elegant Floating Badge */}
-        <div className="inline-flex items-center gap-2 bg-[#f5f5f7] border border-[#e8e8ed] px-4 py-1.5 rounded-full text-xs font-semibold text-[#0066cc] uppercase tracking-wider mb-8 select-none hover:bg-[#ebebf0] transition duration-200">
-          <Sparkles size={14} className="text-[#0066cc] animate-pulse" />
-          Experience Design Minimalism
-        </div>
 
         {/* Main Brand Title */}
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#1d1d1f] leading-none mb-6">
           Where ideas take shape.<br />
-          <span className="bg-gradient-to-r from-[#0066cc] to-[#00a3ff] bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-[#0066cc] to-[#00a3ff] bg-clip-text text-transparent">
             Words that inspire.
           </span>
         </h1>

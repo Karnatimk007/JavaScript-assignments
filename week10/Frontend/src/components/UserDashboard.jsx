@@ -60,7 +60,7 @@ function UserDashboard() {
 
       {/* Dynamic Welcome Message */}
       <div className="mb-8 border-b border-slate-100 pb-6">
-        <h1 className="text-3xl font-extrabold text-[#1d1d1f] tracking-tight">Reader Feed</h1>
+        <h1 className="text-3xl font-extrabold text-[#1d1d1f] tracking-tight">Profile</h1>
         {user && (
           <p className="text-lg text-slate-500 mt-1">
             Welcome back, <span className="font-semibold text-blue-500">{user.firstName || "Reader"} {user.lastName || ""}</span>!
