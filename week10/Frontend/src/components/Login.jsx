@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useAuth } from '../store/authStore'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-hot-toast'
+import { Mail, Lock, LogIn, User, PenTool, ShieldCheck, Loader2 } from 'lucide-react'
 import {
   pageBackground,
   formCard,
@@ -65,60 +66,89 @@ function Login() {
   return (
     <div className={`${pageBackground} flex items-center justify-center py-20`}>
       <div className={formCard}>
-        <h2 className={formTitle}>Sign In</h2>
+        <div className="flex items-center gap-3 mb-6">
+          <LogIn className="text-blue-500 mb-3"size={28} />
+          <h2 className={`${formTitle} mb-0 pt-2`}>sign In</h2>
+        </div>
 
         {/* Error message */}
         {(loginError || Error) && <p className={`${errorClass} mb-5`}>{loginError || Error}</p>}
         {/* Loading */}
-        {loading && <p className={loadingClass}>Signing in…</p>}
+        {loading && (
+          <div className="flex items-center gap-2 mb-4 text-cyan-400">
+            <Loader2 className="animate-spin" size={20} />
+            <p className={loadingClass}>Signing in…</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit(onUserLogin)} className="flex flex-col gap-1">
 
           {/* Role selection */}
           <div className={formGroup}>
             <p className={labelClass}>Select Role</p>
-            <div className="flex gap-4 mt-1">
+            <div className="flex flex-wrap gap-4 mt-1">
               <label className={`${bodyText} flex items-center gap-2 cursor-pointer`}>
-                <input type="radio" {...register('role', { required: true })} value="user" /> User
+                <input type="radio" {...register('role', { required: true })} value="user" className="accent-cyan-500" /> 
+                <User size={16} /> User
               </label>
               <label className={`${bodyText} flex items-center gap-2 cursor-pointer`}>
-                <input type="radio" {...register('role', { required: true })} value="author" /> Author
+                <input type="radio" {...register('role', { required: true })} value="author" className="accent-cyan-500" /> 
+                <PenTool size={16} /> Author
               </label>
               <label className={`${bodyText} flex items-center gap-2 cursor-pointer`}>
-                <input type="radio" {...register('role', { required: true })} value="admin" /> Admin
+                <input type="radio" {...register('role', { required: true })} value="admin" className="accent-cyan-500" /> 
+                <ShieldCheck size={16} /> Admin
               </label>
             </div>
           </div>
 
           {/* Email */}
           <div className={formGroup}>
-            <label className={labelClass}>Email</label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              {...register('email', { required: 'Email is required' })}
-              className={inputClass}
-            />
+            <label className={`${labelClass} flex items-center gap-2`}>
+              <Mail size={16} /> Email
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                placeholder="you@example.com"
+                {...register('email', { required: 'Email is required' })}
+                className={`${inputClass}`}
+              />
+            </div>
             {errors.email && <p className={errorClass}>{errors.email.message}</p>}
           </div>
 
           {/* Password */}
           <div className={formGroup}>
             <div className="flex items-center justify-between mb-1">
-              <label className={`${labelClass} mb-0`}>Password</label>
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/forgot-password'); }} className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors">Forgot password?</a>
+              <label className={`${labelClass} flex items-center gap-2 mb-0`}>
+                <Lock size={16} /> Password
+              </label>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/forgot-password'); }} className={`${bodyText} text-sm hover:text-blue-400 transition-colors`}>Forgot password?</a>
             </div>
-            <input
-              type="password"
-              placeholder="••••••••"
-              {...register('password', { required: 'Password is required' })}
-              className={inputClass}
-            />
+            <div className="relative">
+              <input
+                type="password"
+                placeholder="••••••••"
+                {...register('password', { required: 'Password is required' })}
+                className={`${inputClass}`}
+              />
+            </div>
             {errors.password && <p className={errorClass}>{errors.password.message}</p>}
           </div>
 
-          <button type="submit" className={submitBtn} disabled={loading}>
-            {loading ? 'Signing in...' : 'Login'}
+          <button type="submit" className={`${submitBtn} flex items-center justify-center gap-2`} disabled={loading}>
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin" size={18} />
+                Signing in...
+              </>
+            ) : (
+              <>
+                <LogIn size={18} />
+                Login
+              </>
+            )}
           </button>
         </form>
       </div>

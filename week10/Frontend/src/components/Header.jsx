@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router'
 import { useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
+import { Home, UserPlus, LogIn, User, LogOut } from 'lucide-react'
 import {
   navbarClass,
   navContainerClass,
@@ -56,8 +57,9 @@ function Header() {
           <li>
             <NavLink
               to="/"
-              className={({ isActive }) => isActive ? navLinkActiveClass : navLinkClass}
+              className={({ isActive }) => (isActive ? `${navLinkActiveClass} flex items-center gap-2` : `${navLinkClass} flex items-center gap-2`)}
             >
+              <Home size={18} />
               Home
             </NavLink>
           </li>
@@ -65,13 +67,15 @@ function Header() {
           {!isAuthenticated && (
             <>
               <li>
-                <NavLink to="/register" className={({ isActive }) => (isActive ? navLinkActiveClass : navLinkClass)}>
+                <NavLink to="/register" className={({ isActive }) => (isActive ? `${navLinkActiveClass} flex items-center gap-2` : `${navLinkClass} flex items-center gap-2`)}>
+                  <UserPlus size={18} />
                   Register
                 </NavLink>
               </li>
 
               <li>
-                <NavLink to="/login" className={({ isActive }) => (isActive ? navLinkActiveClass : navLinkClass)}>
+                <NavLink to="/login" className={({ isActive }) => (isActive ? `${navLinkActiveClass} flex items-center gap-2` : `${navLinkClass} flex items-center gap-2`)}>
+                  <LogIn size={18} />
                   Login
                 </NavLink>
               </li>
@@ -84,14 +88,16 @@ function Header() {
               <li>
                 <NavLink
                   to={getProfilePath()}
-                  className={({ isActive }) => (isActive ? navLinkActiveClass : navLinkClass)}
+                  className={({ isActive }) => (isActive ? `${navLinkActiveClass} flex items-center gap-2` : `${navLinkClass} flex items-center gap-2`)}
                 >
+                  <User size={18} />
                   Profile
                 </NavLink>
               </li>
 
               <li>
-                <button className={navLinkClass} onClick={handleLogout}>
+                <button className={`${navLinkClass} flex items-center gap-2`} onClick={handleLogout}>
+                  <LogOut size={18} />
                   Logout
                 </button>
               </li>

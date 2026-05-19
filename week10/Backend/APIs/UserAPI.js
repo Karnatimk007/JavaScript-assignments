@@ -72,7 +72,6 @@ UserRouter.put('/articles',verifyToken('USER'),async(req,res)=>{
     if(!articleWithComment){
         return res.status(404).json({message:"Article not found"})
     }
-    await articleWithComment.save()
     res.status(201).json({message:"Comment added",articleWithComment})
 })
 //read single article by id

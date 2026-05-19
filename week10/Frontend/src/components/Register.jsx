@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
+import { UserPlus, User, Mail, Lock, Image, PenTool, Loader2, Upload } from 'lucide-react'
 import {
   pageBackground,
   formCard,
@@ -110,13 +111,21 @@ function Register() {
 
   //loading
   if(loading){
-    return <p className={loadingClass}>Registering…</p>
+    return (
+      <div className={`${pageBackground} flex flex-col items-center justify-center py-20`}>
+        <Loader2 className="animate-spin text-cyan-400 mb-4" size={48} />
+        <p className={loadingClass}>Registering…</p>
+      </div>
+    )
   }
 
   return (
     <div className={`${pageBackground} flex items-center justify-center py-20`}>
       <div className={formCard}>
-        <h2 className={formTitle}>Register</h2>
+        <div className="flex items-center gap-3 mb-6">
+          <UserPlus className="text-blue-500 mb-5 " size={28} />
+          <h2 className={`${formTitle} mb-0 pt-2`}>Register</h2>
+        </div>
 
         {/* Error message */}
         {error && <p className={`${errorClass} mb-5`}>{error}</p>}
@@ -128,61 +137,68 @@ function Register() {
             <p className={labelClass}>Select Role</p>
             <div className="flex gap-6 mt-1">
               <label className={`${bodyText} flex items-center gap-2 cursor-pointer`}>
-                <input type="radio" {...register('role')} value="user" /> User
+                <input type="radio" {...register('role')} value="user" className="accent-cyan-500" /> 
+                <User size={16} /> User
               </label>
               <label className={`${bodyText} flex items-center gap-2 cursor-pointer`}>
-                <input type="radio" {...register('role')} value="author" /> Author
+                <input type="radio" {...register('role')} value="author" className="accent-cyan-500" /> 
+                <PenTool size={16} /> Author
               </label>
             </div>
           </div>
 
           {/* Name row */}
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <div className={`${formGroup} flex-1`}>
-              <label className={labelClass}>First Name</label>
-              <input
-                type="text"
-                placeholder="First name"
-                {...register('firstName')}
-                className={inputClass}
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="First name"
+                  {...register('firstName')}
+                  className={`${inputClass}`}
+                />
+              </div>
             </div>
             <div className={`${formGroup} flex-1`}>
-              <label className={labelClass}>Last Name</label>
-              <input
-                type="text"
-                placeholder="Last name"
-                {...register('lastName')}
-                className={inputClass}
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  {...register('lastName')}
+                  className={`${inputClass}`}
+                />
+              </div>
             </div>
           </div>
 
           {/* Email */}
           <div className={formGroup}>
-            <label className={labelClass}>Email</label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              {...register('email')}
-              className={inputClass}
-            />
+            <div className="relative">
+              <input
+                type="email"
+                placeholder="you@example.com"
+                {...register('email')}
+                className={`${inputClass} pl-10`}
+              />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            </div>
           </div>
 
           {/* Password */}
           <div className={formGroup}>
-            <label className={labelClass}>Password</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              {...register('password')}
-              className={inputClass}
-            />
+            <div className="relative">
+              <input
+                type="password"
+                placeholder="••••••••"
+                {...register('password')}
+                className={`${inputClass} pl-10`}
+              />
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            </div>
           </div>
 
           {/* Profile image URL */}
           <div className={formGroup}>
-            <label className={labelClass}>Profile Image</label>
            <input
             type="file"
             accept="image/png, image/jpeg"
@@ -223,8 +239,9 @@ function Register() {
             )}
           </div>
 
-          <button type="submit" className={submitBtn} disabled={loading}>
-            {loading ? 'Registering…' : 'Register'}
+          <button type="submit" className={`${submitBtn} flex items-center justify-center gap-2 mt-4`} disabled={loading}>
+            <UserPlus size={18} />
+            Register
           </button>
         </form>
 

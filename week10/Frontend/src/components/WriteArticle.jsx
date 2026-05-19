@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { PenTool, Tag, FileText, Send, Loader2, Type } from "lucide-react";
 import {
   formCard,
   formTitle,
@@ -60,13 +61,18 @@ function WriteArticle() {
 
   return (
     <div className={formCard}>
-      <h2 className={formTitle}>Write New Article</h2>
+      <div className="flex items-center gap-3 mb-6">
+        <PenTool className="text-cyan-400" size={28} />
+        <h2 className={`${formTitle} mb-0`}>Write New Article</h2>
+      </div>
 
       <form onSubmit={handleSubmit(submitArticle)}>
 
         {/* Title */}
         <div className={formGroup}>
-          <label className={labelClass}>Title</label>
+          <label className={`${labelClass} flex items-center gap-2`}>
+            <Type size={16} /> Title
+          </label>
 
           <input
             type="text"
@@ -88,7 +94,9 @@ function WriteArticle() {
 
         {/* Category */}
         <div className={formGroup}>
-          <label className={labelClass}>Category</label>
+          <label className={`${labelClass} flex items-center gap-2`}>
+            <Tag size={16} /> Category
+          </label>
 
           <select
             className={inputClass}
@@ -110,7 +118,9 @@ function WriteArticle() {
 
         {/* Content */}
         <div className={formGroup}>
-          <label className={labelClass}>Content</label>
+          <label className={`${labelClass} flex items-center gap-2`}>
+            <FileText size={16} /> Content
+          </label>
 
           <textarea
             rows="8"
@@ -131,8 +141,18 @@ function WriteArticle() {
         </div>
 
         {/* Submit */}
-        <button className={submitBtn} type="submit" disabled={loading}>
-          {loading ? "Publishing..." : "Publish Article"}
+        <button className={`${submitBtn} flex items-center justify-center gap-2`} type="submit" disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className="animate-spin" size={18} />
+              Publishing...
+            </>
+          ) : (
+            <>
+              <Send size={18} />
+              Publish Article
+            </>
+          )}
         </button>
 
         {loading && (
