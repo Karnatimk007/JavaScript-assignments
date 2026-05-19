@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router";
+import { useAuth } from "../store/authStore";
 import {
   pageWrapper,
   navLinkClass,
@@ -7,8 +8,18 @@ import {
 } from "../styles/common";
 
 function AuthorProfile() {
+  const user = useAuth((state) => state.currentUser)
+
   return (
     <div className={pageWrapper}>
+      <div className="mb-6">
+        <h1 className="text-3xl font-extrabold text-[#1d1d1f] tracking-tight">Author Profile</h1>
+        {user && (
+          <p className="text-lg text-slate-500 mt-1">
+            Welcome back, <span className="font-semibold text-blue-500">{user.firstName || "Author"} {user.lastName || ""}</span>!
+          </p>
+        )}
+      </div>
       
       {/* Author Navigation */}
       <div className="flex gap-6 mb-6">

@@ -55,11 +55,11 @@ const authenticateUser= async ({email, password, role}) => {
     throw err
    }
    //generate token
-   const token = jwt.sign(
-    { userId: user._id, role: user.role, email: user.email, profileImageUrl: user.profileImageUrl },
-    process.env.JWT_SECRET,
-    { expiresIn: '1h' }
-  )
+    const token = jwt.sign(
+     { userId: user._id, role: user.role, email: user.email, profileImageUrl: user.profileImageUrl, firstName: user.firstName, lastName: user.lastName },
+     process.env.JWT_SECRET,
+     { expiresIn: '1h' }
+   )
    const userObject=user.toObject()
    delete userObject.password
    return {user:userObject,token}

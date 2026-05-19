@@ -1,6 +1,7 @@
 import { useNavigate, Outlet } from "react-router";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAuth } from "../store/authStore";
 
 import {
   articleGrid,
@@ -14,6 +15,7 @@ import {
 
 function UserDashboard() {
   const navigate = useNavigate();
+  const user = useAuth((state) => state.currentUser);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
@@ -53,8 +55,18 @@ function UserDashboard() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-7xl mx-auto">
       {error && <p className={errorClass}>{error}</p>}
+
+      {/* Dynamic Welcome Message */}
+      <div className="mb-8 border-b border-slate-100 pb-6">
+        <h1 className="text-3xl font-extrabold text-[#1d1d1f] tracking-tight">Reader Feed</h1>
+        {user && (
+          <p className="text-lg text-slate-500 mt-1">
+            Welcome back, <span className="font-semibold text-blue-500">{user.firstName || "Reader"} {user.lastName || ""}</span>!
+          </p>
+        )}
+      </div>
 
       <div className={articleGrid}>
         {articles.map((articleObj) => (
