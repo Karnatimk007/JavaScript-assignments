@@ -59,9 +59,9 @@ app.use((err, req, res, next) => {
     });
   }
   // Duplicate key
-  if (err.code === 11000) {
+  if (err.code === 11000 || (err.cause && err.cause.code === 11000) || (err.name === 'MongooseError' && err.message.includes('already exists'))) {
     return res.status(409).json({
-      message: "Duplicate field value",
+      message: "Email already registered",
     });
   }
   res.status(500).json({

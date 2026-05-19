@@ -89,8 +89,8 @@ function Register() {
       }
     } catch (err) {
       let errorMsg = err.response?.data?.message || "Registration failed. Please try again.";
-      if (errorMsg === "Duplicate field value") {
-        errorMsg = "Email already exists. Please use a different email or login.";
+      if (errorMsg === "Duplicate field value" || errorMsg === "Email already registered") {
+        errorMsg = "Email already registered";
       } else if (errorMsg === "Validation failed") {
         errorMsg = "Please check your inputs and ensure all required fields are provided.";
       }
