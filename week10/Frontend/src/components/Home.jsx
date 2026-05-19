@@ -51,9 +51,21 @@ function Home() {
               <Link to={getWriteOrDashboardPath()} className={`${primaryBtn} shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 flex items-center gap-2 px-8 py-3 text-base rounded-full`}>
                 <PenTool size={18} /> Write a Story
               </Link>
-              <a href="#articles-feed" className={`${secondaryBtn} flex items-center gap-2 px-8 py-3 text-base rounded-full hover:bg-slate-100 transition-colors`}>
-                Read Latest Stories <ArrowRight size={18} />
-              </a>
+              {user.role === "AUTHOR" && (
+                <Link to="/author-profile/articles" className={`${secondaryBtn} flex items-center gap-2 px-8 py-3 text-base rounded-full hover:bg-slate-100 transition-colors`}>
+                  Read Latest Stories <ArrowRight size={18} />
+                </Link>
+              )}
+              {user.role === "USER" && (
+                <Link to="/user-profile" className={`${secondaryBtn} flex items-center gap-2 px-8 py-3 text-base rounded-full hover:bg-slate-100 transition-colors`}>
+                  Read Latest Stories <ArrowRight size={18} />
+                </Link>
+              )}
+              {user.role === "ADMIN" && (
+                <Link to="/admin-profile/users" className={`${secondaryBtn} flex items-center gap-2 px-8 py-3 text-base rounded-full hover:bg-slate-100 transition-colors`}>
+                  Manage Users <ArrowRight size={18} />
+                </Link>
+              )}
             </>
           ) : (
             <>
